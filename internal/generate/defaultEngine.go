@@ -135,25 +135,29 @@ func handleDeclarations(file *ast.File, src *Source) {
 		switch d := decl.(type) {
 		case *ast.GenDecl:
 			for i := 0; i < len(d.Specs); i++ {
-				switch s := d.Specs[i].(type) {
-				// handle type specs only
-				case *ast.TypeSpec:
-					iName := s.Name.Name
-					methods := make([]string, 0)
-					switch t := s.Type.(type) {
-					case *ast.InterfaceType:
-						methods = getMethods(t)
-					default: // skip struct types etc.
-						continue
-					}
-					src.Structs = append(src.Structs,
-						SourceStruct{
-							Name:    iName,
-							Methods: methods,
-						},
-					)
-				}
+				handleSpec(d.Specs[i], src)
 			}
 		}
+	}
+}
+
+func handleSpec(spec ast.Spec, src *Source) {
+	switch s := spec.(type) {
+	// handle type specs only
+	case *ast.TypeSpec:
+		iName := s.Name.Name
+		methods := make([]string, 0)
+		switch t := s.Type.(type) {
+		case *ast.InterfaceType:
+			methods = getMethods(t)
+		default: // skip struct types etc.
+			return
+		}
+		src.Structs = append(src.Structs,
+			SourceStruct{
+				Name:    iName,
+				Methods: methods,
+			},
+		)
 	}
 }
