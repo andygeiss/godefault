@@ -37,7 +37,12 @@ func (a *defaultClient) WithManager(m Manager) Client {
 func (a *defaultClient) writeSources(src []byte, cwd string) {
 	sources := a.manager.GenerateMultipleGoSources(string(src))
 	for name, code := range sources {
-		if err := os.WriteFile(filepath.Join(cwd, fmt.Sprintf("%s.go", name)), []byte(code), 0644); err != nil {
+		path := filepath.Join(cwd, fmt.Sprintf("%s.go", name))
+		_, err := os.Stat(path)
+		if err == nil { // skip if file not exists
+			continue
+		}
+		if err := os.WriteFile(path, []byte(code), 0644); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -46,7 +51,12 @@ func (a *defaultClient) writeSources(src []byte, cwd string) {
 func (a *defaultClient) writeTests(src []byte, cwd string) {
 	tests := a.manager.GenerateMultipleGoTests(string(src))
 	for name, code := range tests {
-		if err := os.WriteFile(filepath.Join(cwd, fmt.Sprintf("%s_test.go", name)), []byte(code), 0644); err != nil {
+		path := filepath.Join(cwd, fmt.Sprintf("%s_test.go", name))
+		_, err := os.Stat(path)
+		if err == nil { // skip if file not exists
+			continue
+		}
+		if err := os.WriteFile(path, []byte(code), 0644); err != nil {
 			log.Fatal(err)
 		}
 	}
