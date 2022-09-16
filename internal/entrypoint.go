@@ -1,12 +1,12 @@
 package internal
 
-import "github.com/andygeiss/godefault/internal/generate"
+import "github.com/andygeiss/godefault/internal/core"
 
 // Entrypoint ...
 func Entrypoint() {
-	dra := generate.DefaultResourceAccess
-	de := generate.DefaultEngine
-	dm := generate.DefaultManager.WithEngine(de).WithResourceAccess(dra)
-	dc := generate.DefaultClient.WithManager(dm)
+	dra := core.DefaultResourceAccess
+	de := core.DefaultEngine
+	dm := core.DefaultManager.WithEngine(de).WithResourceAccess(dra)
+	dc := core.DefaultClient.WithManager(dm)
 	dc.Generate()
 }

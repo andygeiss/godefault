@@ -1,7 +1,7 @@
-package generate_test
+package core_test
 
 import (
-	"github.com/andygeiss/godefault/internal/generate"
+	"github.com/andygeiss/godefault/internal/core"
 	"github.com/andygeiss/utils/assert"
 	"testing"
 )
@@ -493,9 +493,9 @@ var DefaultManager = NewDefaultManager()
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			de := generate.DefaultEngine
-			dra := generate.DefaultResourceAccess
-			dm := generate.NewDefaultManager().WithEngine(de).WithResourceAccess(dra)
+			de := core.DefaultEngine
+			dra := core.DefaultResourceAccess
+			dm := core.NewDefaultManager().WithEngine(de).WithResourceAccess(dra)
 			out := dm.GenerateSingleGoSource(test.in)
 			assert.That(test.name, t, out, test.expected)
 		})
@@ -586,9 +586,9 @@ func TestDefaultManager_DoSomethingElse(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			de := generate.DefaultEngine
-			dra := generate.DefaultResourceAccess
-			dm := generate.NewDefaultManager().WithEngine(de).WithResourceAccess(dra)
+			de := core.DefaultEngine
+			dra := core.DefaultResourceAccess
+			dm := core.NewDefaultManager().WithEngine(de).WithResourceAccess(dra)
 			out := dm.GenerateSingleGoTest(test.in)
 			assert.That(test.name, t, out, test.expected)
 		})

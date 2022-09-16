@@ -1,4 +1,4 @@
-package generate
+package core
 
 // Client ...
 type Client interface {

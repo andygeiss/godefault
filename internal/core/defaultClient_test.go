@@ -1,7 +1,7 @@
-package generate_test
+package core_test
 
 import (
-	"github.com/andygeiss/godefault/internal/generate"
+	"github.com/andygeiss/godefault/internal/core"
 	"github.com/andygeiss/utils/assert"
 	"os"
 	"path/filepath"
@@ -25,10 +25,10 @@ func TestDefaultClient_Generate(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			de := generate.DefaultEngine
-			dra := generate.DefaultResourceAccess
-			dm := generate.DefaultManager.WithResourceAccess(dra).WithEngine(de)
-			dc := generate.DefaultClient.WithManager(dm)
+			de := core.DefaultEngine
+			dra := core.DefaultResourceAccess
+			dm := core.DefaultManager.WithResourceAccess(dra).WithEngine(de)
+			dc := core.DefaultClient.WithManager(dm)
 			_ = os.Chdir("testdata")
 			_ = os.Setenv("GOFILE", test.src)
 			dc.Generate()
@@ -42,17 +42,20 @@ func TestDefaultClient_Generate(t *testing.T) {
 			assert.That(test.name, t, correct, true)
 		})
 	}
+
+	_ = os.Remove("defaultFoo.go")
+	_ = os.Remove("defaultFoo_test.go")
 }
 
 func TestNewDefaultClient_Generate_Handle_Existing_Files(t *testing.T) {
 	_ = os.Chdir("testdata")
-	de := generate.DefaultEngine
-	dra := generate.DefaultResourceAccess
-	dm := generate.DefaultManager.WithResourceAccess(dra).WithEngine(de)
-	dc := generate.DefaultClient.WithManager(dm)
+	de := core.DefaultEngine
+	dra := core.DefaultResourceAccess
+	dm := core.DefaultManager.WithResourceAccess(dra).WithEngine(de)
+	dc := core.DefaultClient.WithManager(dm)
 	srcBefore := filepath.Join("coreBefore.go")
 	srcAfter := filepath.Join("coreAfter.go")
-	dst := filepath.Join("defaultFoo.go")
+	dst := filepath.Join("defaultBar.go")
 
 	_ = os.Setenv("GOFILE", srcBefore)
 	dc.Generate()
@@ -62,8 +65,8 @@ func TestNewDefaultClient_Generate_Handle_Existing_Files(t *testing.T) {
 	dc.Generate()
 	infoAfter, errAfter := os.Stat(dst)
 
-	_ = os.Remove("defaultFoo.go")
-	_ = os.Remove("defaultFoo_test.go")
+	_ = os.Remove("defaultBar.go")
+	_ = os.Remove("defaultBar_test.go")
 
 	assert.That("err should be nil", t, errBefore, nil)
 	assert.That("err should be nil", t, errAfter, nil)

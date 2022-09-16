@@ -1,6 +1,6 @@
 package testdata
 
-type Foo interface {
-	Bar()
+type Bar interface {
+	Foo()
 	FooBar()
 }

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/andygeiss/godefault/internal/generate"
+	"github.com/andygeiss/godefault/internal"
 	"github.com/andygeiss/utils/run"
 )
 
 func main() {
-	run.Main(generate.Entrypoint)
+	run.Main(internal.Entrypoint)
 }

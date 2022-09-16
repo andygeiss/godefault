@@ -1,4 +1,4 @@
-package generate
+package core
 
 type defaultManager struct {
 	err            error

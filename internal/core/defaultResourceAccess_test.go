@@ -1,7 +1,7 @@
-package generate_test
+package core_test
 
 import (
-	"github.com/andygeiss/godefault/internal/generate"
+	"github.com/andygeiss/godefault/internal/core"
 	"github.com/andygeiss/utils/assert"
 	"testing"
 )
@@ -9,14 +9,14 @@ import (
 func TestDefaultResourceAccess_GenerateSingleFile(t *testing.T) {
 	tests := []struct {
 		name     string
-		in       *generate.Source
+		in       *core.Source
 		expected string
 	}{
 		{
 			name: "multiple declaration in one single file",
-			in: &generate.Source{
+			in: &core.Source{
 				Package: "example",
-				Structs: []generate.SourceStruct{
+				Structs: []core.SourceStruct{
 					{
 						Name: "Client",
 						Methods: []string{
@@ -140,8 +140,8 @@ var DefaultResourceAccess = NewDefaultResourceAccess()
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			dra := generate.DefaultResourceAccess
-			out := dra.GenerateSingleFile(test.in, generate.DefaultGoSourceTemplate)
+			dra := core.DefaultResourceAccess
+			out := dra.GenerateSingleFile(test.in, core.DefaultGoSourceTemplate)
 			assert.That(test.name, t, out, test.expected)
 		})
 	}
@@ -150,14 +150,14 @@ var DefaultResourceAccess = NewDefaultResourceAccess()
 func TestDefaultResourceAccess_GenerateMultiFiles(t *testing.T) {
 	tests := []struct {
 		name     string
-		in       *generate.Source
+		in       *core.Source
 		expected map[string]string
 	}{
 		{
 			name: "multiple declaration in multiple files",
-			in: &generate.Source{
+			in: &core.Source{
 				Package: "example",
-				Structs: []generate.SourceStruct{
+				Structs: []core.SourceStruct{
 					{
 						Name: "Client",
 						Methods: []string{
@@ -232,8 +232,8 @@ var DefaultManager = NewDefaultManager()
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			dra := generate.DefaultResourceAccess
-			out := dra.GenerateMultiFiles(test.in, generate.DefaultGoSourceTemplate)
+			dra := core.DefaultResourceAccess
+			out := dra.GenerateMultiFiles(test.in, core.DefaultGoSourceTemplate)
 			assert.That(test.name, t, out["defaultClient"], test.expected["defaultClient"])
 			assert.That(test.name, t, out["defaultManager"], test.expected["defaultManager"])
 		})
