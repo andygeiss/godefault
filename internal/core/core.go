@@ -1,31 +1,31 @@
 package core
 
-// Client ...
-type Client interface {
+// DeveloperClient ...
+type DeveloperClient interface {
 	Error() (err error)
 	Generate()
-	WithManager(m Manager) Client
+	WithManager(m GeneratorManager) DeveloperClient
 }
 
-// Manager ...
-type Manager interface {
+// GeneratorManager ...
+type GeneratorManager interface {
 	Error() (err error)
 	GenerateMultipleGoSources(in string) (out map[string]string)
 	GenerateMultipleGoTests(in string) (out map[string]string)
 	GenerateSingleGoSource(in string) (out string)
 	GenerateSingleGoTest(in string) (out string)
-	WithEngine(e Engine) (m Manager)
-	WithResourceAccess(ra ResourceAccess) (m Manager)
+	WithEngine(e TemplateEngine) (m GeneratorManager)
+	WithResourceAccess(ra GoResourceAccess) (m GeneratorManager)
 }
 
-// Engine ...
-type Engine interface {
+// TemplateEngine ...
+type TemplateEngine interface {
 	Error() (err error)
 	Parse(in string) (src *Source)
 }
 
-// ResourceAccess ...
-type ResourceAccess interface {
+// GoResourceAccess ...
+type GoResourceAccess interface {
 	Error() (err error)
 	GenerateMultiFiles(in *Source, tmpl string) (out map[string]string)
 	GenerateSingleFile(in *Source, tmpl string) (out string)

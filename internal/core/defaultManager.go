@@ -2,8 +2,8 @@ package core
 
 type defaultManager struct {
 	err            error
-	engine         Engine
-	resourceAccess ResourceAccess
+	engine         TemplateEngine
+	resourceAccess GoResourceAccess
 }
 
 func (a *defaultManager) Error() (err error) {
@@ -66,18 +66,18 @@ func (a *defaultManager) GenerateSingleGoTest(in string) (out string) {
 	return out
 }
 
-func (a *defaultManager) WithEngine(e Engine) Manager {
+func (a *defaultManager) WithEngine(e TemplateEngine) GeneratorManager {
 	a.engine = e
 	return a
 }
 
-func (a *defaultManager) WithResourceAccess(ra ResourceAccess) Manager {
+func (a *defaultManager) WithResourceAccess(ra GoResourceAccess) GeneratorManager {
 	a.resourceAccess = ra
 	return a
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() Manager {
+func NewDefaultManager() GeneratorManager {
 	return &defaultManager{}
 }
 

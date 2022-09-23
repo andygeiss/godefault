@@ -29,7 +29,7 @@ func (a *defaultEngine) Parse(in string) (src *Source) {
 }
 
 // NewDefaultEngine ...
-func NewDefaultEngine() Engine {
+func NewDefaultEngine() TemplateEngine {
 	return &defaultEngine{}
 }
 

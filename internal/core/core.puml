@@ -1,0 +1,32 @@
+@startuml
+autonumber
+
+skinparam ResponseMessageBelowArrow true
+
+title "Generate Go Sources and Tests"
+
+actor Developer as A
+participant "Developer Client" as B #CDDC39
+participant "Generator Manager" as C #FFEB3B
+participant "Template Engine" as D #FFC107
+participant "Go Resource Access" as E #00BCD4
+
+A -> B: Generate()
+
+B -> C: GenerateMultipleGoSources(in)
+C -> D: Parse(in)
+D -> C: src *Source
+C -> E: GenerateMultiFiles(src, DefaultGoSourceTemplate)
+E -> C:
+C -> B: Error()
+
+B -> C: GenerateMultipleGoTests(in)
+C -> D: Parse(in)
+D -> C: src *Source
+C -> E: GenerateMultipleGoTests(src, DefaultGoTestTemplate)
+E -> C:
+C -> B: Error()
+
+B -> A: Error()
+
+@enduml

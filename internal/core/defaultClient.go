@@ -9,7 +9,7 @@ import (
 
 type defaultClient struct {
 	err     error
-	manager Manager
+	manager GeneratorManager
 }
 
 func (a *defaultClient) Error() (err error) {
@@ -29,7 +29,7 @@ func (a *defaultClient) Generate() {
 	a.writeTests(src, cwd)
 }
 
-func (a *defaultClient) WithManager(m Manager) Client {
+func (a *defaultClient) WithManager(m GeneratorManager) DeveloperClient {
 	a.manager = m
 	return a
 }
@@ -63,7 +63,7 @@ func (a *defaultClient) writeTests(src []byte, cwd string) {
 }
 
 // NewDefaultClient ...
-func NewDefaultClient() Client {
+func NewDefaultClient() DeveloperClient {
 	return &defaultClient{}
 }
 

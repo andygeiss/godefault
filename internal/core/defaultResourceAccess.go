@@ -44,7 +44,7 @@ func (a *defaultResourceAccess) GenerateSingleFile(in *Source, tmpl string) (out
 }
 
 // NewDefaultResourceAccess ...
-func NewDefaultResourceAccess() ResourceAccess {
+func NewDefaultResourceAccess() GoResourceAccess {
 	return &defaultResourceAccess{}
 }
 
