@@ -111,8 +111,8 @@ import (
 	"github.com/andygeiss/utils/assert"
 	"testing"
 )
-{{ range $s := .Structs }}{{ range $m := $s.Methods }}
-func TestDefault{{ $s.Name }}_{{ prefix $m }}(t *testing.T) {
+{{ range $s := .Structs }}{{ range $m := $s.Methods }}{{ $p := prefix $m }}{{ if ne $p "Error" }}
+func TestDefault{{ $s.Name }}_{{ $p }}(t *testing.T) {
 	// Arrange
 	sut := {{ $pkg }}.Default{{ $s.Name }}
 	// Act
@@ -120,5 +120,5 @@ func TestDefault{{ $s.Name }}_{{ prefix $m }}(t *testing.T) {
 	// Assert
 	assert.That("error should be nil", t, sut.Error(), nil)
 }
-{{ end }}
+{{ end }}{{ end }}
 {{ end }}`

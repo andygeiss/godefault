@@ -16,7 +16,7 @@ func TestDefaultManager_GenerateSingleGoSource(t *testing.T) {
 			"one interface with no param and result",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Error()
 }
 
@@ -31,7 +31,7 @@ func (a *defaultManager) Error() {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -44,7 +44,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with no param and one result",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Error() (err error)
 }
 
@@ -59,7 +59,7 @@ func (a *defaultManager) Error() (err error) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -72,7 +72,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param and one result",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(cmd string) (err error)
 }
 
@@ -87,7 +87,7 @@ func (a *defaultManager) Run(cmd string) (err error) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -100,7 +100,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with two param and one result",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(cmd, args string) (err error)
 }
 
@@ -115,7 +115,7 @@ func (a *defaultManager) Run(cmd, args string) (err error) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -128,7 +128,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with two param different types and one result",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(cmd string, count int) (err error)
 }
 
@@ -143,7 +143,7 @@ func (a *defaultManager) Run(cmd string, count int) (err error) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -156,7 +156,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with two param different types and two results",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(cmd string, count int) (a, b string)
 }
 
@@ -171,7 +171,7 @@ func (a *defaultManager) Run(cmd string, count int) (a, b string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -184,7 +184,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with two param different types and two results different types",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(cmd string, count int) (out string, err error)
 }
 
@@ -199,7 +199,7 @@ func (a *defaultManager) Run(cmd string, count int) (out string, err error) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -212,7 +212,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param as reference",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(ref *string)
 }
 
@@ -227,7 +227,7 @@ func (a *defaultManager) Run(ref *string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -240,7 +240,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param as slice",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(s []string)
 }
 
@@ -255,7 +255,7 @@ func (a *defaultManager) Run(s []string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -268,7 +268,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param as slice of references",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(s []*string)
 }
 
@@ -283,7 +283,7 @@ func (a *defaultManager) Run(s []*string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -296,7 +296,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param as vararg",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(s ...string)
 }
 
@@ -311,7 +311,7 @@ func (a *defaultManager) Run(s ...string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -324,7 +324,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param as vararg with reference",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(s ...*string)
 }
 
@@ -339,7 +339,7 @@ func (a *defaultManager) Run(s ...*string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -352,7 +352,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with one param as fixed size slice",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Run(s [10]string)
 }
 
@@ -367,7 +367,7 @@ func (a *defaultManager) Run(s [10]string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -380,7 +380,7 @@ var DefaultManager = NewDefaultManager()
 			"one interface with result without name",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Error() error
 }
 
@@ -395,7 +395,7 @@ func (a *defaultManager) Error() error {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -408,7 +408,7 @@ var DefaultManager = NewDefaultManager()
 			"ignore structs",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Error() error
 }
 
@@ -425,7 +425,7 @@ func (a *defaultManager) Error() error {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -438,7 +438,7 @@ var DefaultManager = NewDefaultManager()
 			"support map[string]string",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Foo() (bar map[string]string) 
 }
 
@@ -453,7 +453,7 @@ func (a *defaultManager) Foo() (bar map[string]string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -466,7 +466,7 @@ var DefaultManager = NewDefaultManager()
 			"support map[string]*string",
 			`package testdata
 
-type GeneratorManager interface {
+type Manager interface {
 	Foo() (bar map[string]*string) 
 }
 
@@ -481,7 +481,7 @@ func (a *defaultManager) Foo() (bar map[string]*string) {
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
@@ -525,7 +525,7 @@ import (
 			"one test if one interface with one method is specified",
 			`package example
 
-type GeneratorManager interface {
+type Manager interface {
 	DoSomething()
 }
 `,
@@ -551,7 +551,7 @@ func TestDefaultManager_DoSomething(t *testing.T) {
 			"two test if one interface with two methods are specified",
 			`package example
 
-type GeneratorManager interface {
+type Manager interface {
 	DoSomething()
 	DoSomethingElse()
 }
@@ -580,6 +580,23 @@ func TestDefaultManager_DoSomethingElse(t *testing.T) {
 	// Assert
 	assert.That("error should be nil", t, sut.Error(), nil)
 }
+
+`,
+		},
+		{
+			"skip test if method is named error",
+			`package example
+
+type Manager interface {
+	Error() (err error)
+}
+`,
+			`package example_test
+
+import (
+	"github.com/andygeiss/utils/assert"
+	"testing"
+)
 
 `,
 		},
