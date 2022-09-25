@@ -600,6 +600,34 @@ import (
 
 `,
 		},
+		{
+			"skip builder methods starting with With",
+			`package example
+
+type Manager interface {
+	Error() (err error)
+	DoSomething()
+	WithResourceAccess(ra ResourceAccess) Manager
+}
+`,
+			`package example_test
+
+import (
+	"github.com/andygeiss/utils/assert"
+	"testing"
+)
+
+func TestDefaultManager_DoSomething(t *testing.T) {
+	// Arrange
+	sut := example.DefaultManager
+	// Act
+	//TODO implement me
+	// Assert
+	assert.That("error should be nil", t, sut.Error(), nil)
+}
+
+`,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
