@@ -185,3 +185,63 @@ var DefaultManager = NewDefaultManager()
 		})
 	}
 }
+
+func TestDefaultResourceAccess_GenerateSingleFile_Tests(t *testing.T) {
+	tests := []struct {
+		name     string
+		in       *core.Source
+		expected string
+	}{
+		{
+			name: "skip test if method is named error",
+			in: &core.Source{
+				Package: "example",
+				Structs: []core.SourceStruct{
+					{
+						Name: "Client",
+						Methods: []string{
+							"Error() (err error)",
+						},
+					},
+				},
+			},
+			expected: `package example_test
+
+import (
+	"github.com/andygeiss/utils/assert"
+	"testing"
+)
+
+`,
+		},
+		{
+			name: "skip builder methods starting with With",
+			in: &core.Source{
+				Package: "example",
+				Structs: []core.SourceStruct{
+					{
+						Name: "Client",
+						Methods: []string{
+							"WithManager(m Manager) Client",
+						},
+					},
+				},
+			},
+			expected: `package example_test
+
+import (
+	"github.com/andygeiss/utils/assert"
+	"testing"
+)
+
+`,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			dra := core.DefaultResourceAccess
+			out := dra.GenerateSingleFile(test.in, core.DefaultGoTestTemplate)
+			assert.That(test.name, t, out, test.expected)
+		})
+	}
+}

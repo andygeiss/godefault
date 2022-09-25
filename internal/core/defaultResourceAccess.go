@@ -58,6 +58,12 @@ func executeTemplate(in string, data interface{}) (out string, err error) {
 				parts := strings.Split(in, "(")
 				return parts[0]
 			},
+			"startsWith": func(src, pat string) bool {
+				if strings.HasPrefix(src, pat) {
+					return true
+				}
+				return false
+			},
 		},
 	).Parse(in)
 	if err != nil {
