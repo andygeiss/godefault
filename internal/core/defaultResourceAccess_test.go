@@ -18,32 +18,18 @@ func TestDefaultResourceAccess_GenerateSingleFile(t *testing.T) {
 				Package: "example",
 				Structs: []core.SourceStruct{
 					{
-						Name: "DeveloperClient",
+						Name: "Client",
 						Methods: []string{
 							"Error() (err error)",
-							"WithManager(m GeneratorManager) DeveloperClient",
+							"WithManager(m Manager) Client",
 						},
 					},
 					{
-						Name: "GeneratorManager",
+						Name: "Manager",
 						Methods: []string{
 							"Error() (err error)",
-							"WithEngine(e TemplateEngine) GeneratorManager",
-							"WithResourceAccess(ra GoResourceAccess) GeneratorManager",
-						},
-					},
-					{
-						Name: "TemplateEngine",
-						Methods: []string{
-							"Error() (err error)",
-							"WithResourceAccess(ra GoResourceAccess) TemplateEngine",
-						},
-					},
-					{
-						Name: "GoResourceAccess",
-						Methods: []string{
-							"Error() (err error)",
-							"DoSomethingSpecial()",
+							"WithEngine(e TemplateEngine) Manager",
+							"WithResourceAccess(ra GoResourceAccess) Manager",
 						},
 					},
 				},
@@ -57,13 +43,13 @@ func (a *defaultClient) Error() (err error) {
 	panic("implement me")
 }
 
-func (a *defaultClient) WithManager(m GeneratorManager) DeveloperClient {
+func (a *defaultClient) WithManager(m Manager) Client {
 	//TODO implement me
 	panic("implement me")
 }
 
 // NewDefaultClient ...
-func NewDefaultClient() DeveloperClient {
+func NewDefaultClient() Client {
 	return &defaultClient{}
 }
 
@@ -77,63 +63,23 @@ func (a *defaultManager) Error() (err error) {
 	panic("implement me")
 }
 
-func (a *defaultManager) WithEngine(e TemplateEngine) GeneratorManager {
+func (a *defaultManager) WithEngine(e TemplateEngine) Manager {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (a *defaultManager) WithResourceAccess(ra GoResourceAccess) GeneratorManager {
+func (a *defaultManager) WithResourceAccess(ra GoResourceAccess) Manager {
 	//TODO implement me
 	panic("implement me")
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 
 // DefaultManager ...
 var DefaultManager = NewDefaultManager()
-
-type defaultEngine struct {}
-
-func (a *defaultEngine) Error() (err error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (a *defaultEngine) WithResourceAccess(ra GoResourceAccess) TemplateEngine {
-	//TODO implement me
-	panic("implement me")
-}
-
-// NewDefaultEngine ...
-func NewDefaultEngine() TemplateEngine {
-	return &defaultEngine{}
-}
-
-// DefaultEngine ...
-var DefaultEngine = NewDefaultEngine()
-
-type defaultResourceAccess struct {}
-
-func (a *defaultResourceAccess) Error() (err error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (a *defaultResourceAccess) DoSomethingSpecial() {
-	//TODO implement me
-	panic("implement me")
-}
-
-// NewDefaultResourceAccess ...
-func NewDefaultResourceAccess() GoResourceAccess {
-	return &defaultResourceAccess{}
-}
-
-// DefaultResourceAccess ...
-var DefaultResourceAccess = NewDefaultResourceAccess()
 
 `,
 		},
@@ -159,18 +105,18 @@ func TestDefaultResourceAccess_GenerateMultiFiles(t *testing.T) {
 				Package: "example",
 				Structs: []core.SourceStruct{
 					{
-						Name: "DeveloperClient",
+						Name: "Client",
 						Methods: []string{
 							"Error() (err error)",
-							"WithManager(m GeneratorManager) DeveloperClient",
+							"WithManager(m Manager) Client",
 						},
 					},
 					{
-						Name: "GeneratorManager",
+						Name: "Manager",
 						Methods: []string{
 							"Error() (err error)",
-							"WithEngine(e TemplateEngine) GeneratorManager",
-							"WithResourceAccess(ra GoResourceAccess) GeneratorManager",
+							"WithEngine(e TemplateEngine) Manager",
+							"WithResourceAccess(ra GoResourceAccess) Manager",
 						},
 					},
 				},
@@ -185,13 +131,13 @@ func (a *defaultClient) Error() (err error) {
 	panic("implement me")
 }
 
-func (a *defaultClient) WithManager(m GeneratorManager) DeveloperClient {
+func (a *defaultClient) WithManager(m Manager) Client {
 	//TODO implement me
 	panic("implement me")
 }
 
 // NewDefaultClient ...
-func NewDefaultClient() DeveloperClient {
+func NewDefaultClient() Client {
 	return &defaultClient{}
 }
 
@@ -208,18 +154,18 @@ func (a *defaultManager) Error() (err error) {
 	panic("implement me")
 }
 
-func (a *defaultManager) WithEngine(e TemplateEngine) GeneratorManager {
+func (a *defaultManager) WithEngine(e TemplateEngine) Manager {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (a *defaultManager) WithResourceAccess(ra GoResourceAccess) GeneratorManager {
+func (a *defaultManager) WithResourceAccess(ra GoResourceAccess) Manager {
 	//TODO implement me
 	panic("implement me")
 }
 
 // NewDefaultManager ...
-func NewDefaultManager() GeneratorManager {
+func NewDefaultManager() Manager {
 	return &defaultManager{}
 }
 

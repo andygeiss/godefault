@@ -9,8 +9,6 @@ import (
 )
 
 func TestNewDefaultClient_Generate_Handle_Existing_Files(t *testing.T) {
-	_ = os.Chdir("testdata")
-
 	de := core.DefaultEngine
 	dra := core.DefaultResourceAccess
 	dm := core.DefaultManager.WithResourceAccess(dra).WithEngine(de)
