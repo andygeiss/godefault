@@ -702,12 +702,12 @@ skinparam ResponseMessageBelowArrow true
 
 title "Use Case"
 
-actor User as A
+actor User as U
 
-participant UserClient as B #CDDC39
-participant ShowDashboardManager as C #FFEB3B
-participant TemplateEngine as D #FFC107
-participant CustomerResourceAccess as E #00BCD4
+participant UserClient as C #CDDC39
+participant ShowDashboardManager as M #FFEB3B
+participant TemplateEngine as E #FFC107
+participant CustomerResourceAccess as R #00BCD4
 
 @enduml
 `,

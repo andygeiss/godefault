@@ -30,9 +30,9 @@ But if I refactor 50 times per day and each refactoring takes like 30 seconds th
 
 ## Steps to start
 
-Create a new project and save the following source code into a file.
+Create a new project and save the following source code into a file `internal/core/core.go`:
 ```go
-package example
+package core
 
 import "github.com/andygeiss/utils/message"
 
