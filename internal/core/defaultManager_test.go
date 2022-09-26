@@ -712,6 +712,30 @@ participant CustomerResourceAccess as R #00BCD4
 @enduml
 `,
 		},
+		{
+			"support message bus",
+			`package example
+
+type Client interface {
+	WithMessageBus(mb message.Bus) Client
+}
+
+`,
+			`@startuml
+autonumber
+
+skinparam ResponseMessageBelowArrow true
+
+title "Use Case"
+
+actor User as U
+
+participant MessageBus as B #E040FB
+participant Client as C #CDDC39
+
+@enduml
+`,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
