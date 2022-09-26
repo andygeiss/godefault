@@ -34,12 +34,39 @@ Create a new project and save the following source code into a file.
 ```go
 package example
 
+import "github.com/andygeiss/utils/message"
+
 //go:generate godefault
 
-type Manager interface {
-	DoSomething(in string) (out string, err error)
+type ContractorPortalClient interface {
+	Error() (err error)
+	WithMessageBus(mb message.Bus)
 }
 
+type MarketManager interface {
+	Error() (err error)
+	WithMessageBus(mb message.Bus)
+	WithRegulationEngine(e RegulationEngine) MarketManager
+	WithProjectResourceAccess(ra ProjectResourceAccess) MarketManager
+	WithWorkflowResourceAccess(ra ProjectResourceAccess) MarketManager
+}
+
+type ProjectResourceAccess interface {
+	Error() (err error)
+}
+
+type WorkflowResourceAccess interface {
+	Error() (err error)
+}
+
+type RegulationEngine interface {
+	Error() (err error)
+	WithRegulationResourceAccess(ra RegulationResourceAccess) RegulationEngine
+}
+
+type RegulationResourceAccess interface {
+	Error() (err error)
+}
 ```
 
 Create and initialize a new module:
@@ -51,43 +78,4 @@ Finally, generate the default implementation:
 
     go generate ./...
 
-This will create the following source
-
-```go
-package example
-
-type defaultManager struct {}
-
-func (a *defaultManager) DoSomething(in string) (out string, err error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-// NewDefaultManager ...
-func NewDefaultManager() Manager {
-	return &defaultManager{}
-}
-
-// DefaultManager ...
-var DefaultManager = NewDefaultManager()
-```
-
-and test.
-
-```go
-package example_test
-
-import (
-	"github.com/andygeiss/utils/assert"
-	"testing"
-)
-
-func TestDefaultManager_DoSomething(t *testing.T) {
-	// Arrange
-	sut := example.DefaultManager
-	// Act
-	//TODO implement me
-	// Assert
-	assert.That("error should be nil", t, sut.Error(), nil)
-}
-```
+This will create the sources, tests and PlantUML boilerplate.
