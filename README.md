@@ -78,11 +78,11 @@ Finally, generate the default implementation:
 
     go generate ./...
 
-This will create a PlantUML and ...
+This will create a PlantUML `internal/core/core.puml` ...
 
 ![sequence](sequence.png)
 
-Go sources and tests as boilerplate.
+... and Go sources and tests as boilerplate.
 
     C:.                                              
     |   go.mod                                       

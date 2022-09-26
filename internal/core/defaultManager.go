@@ -159,7 +159,7 @@ skinparam ResponseMessageBelowArrow true
 title "Use Case"
 
 actor User as U
-{{ range $s := .Structs }}{{ $hasSuffixClient := endsWith $s.Name "Client" }}{{ $hasSuffixManager := endsWith $s.Name "Manager" }}{{ $hasSuffixEngine := endsWith $s.Name "Engine" }}{{ $hasSuffixResourceAccess := endsWith $s.Name "ResourceAccess" }}
+{{ $usesMessageBus := hasMethodContains . "MessageBus" }}{{ if $usesMessageBus }}{{ println }}participant MessageBus as B #E040FB{{ end }}{{ range $s := .Structs }}{{ $hasSuffixClient := endsWith $s.Name "Client" }}{{ $hasSuffixManager := endsWith $s.Name "Manager" }}{{ $hasSuffixEngine := endsWith $s.Name "Engine" }}{{ $hasSuffixResourceAccess := endsWith $s.Name "ResourceAccess" }}
 {{ if $hasSuffixClient }}participant {{ $s.Name }} as C #CDDC39{{ end }}{{ if $hasSuffixManager }}participant {{ $s.Name }} as M #FFEB3B{{ end }}{{ if $hasSuffixEngine }}participant {{ $s.Name }} as E #FFC107{{ end }}{{ if $hasSuffixResourceAccess }}participant {{ $s.Name }} as R #00BCD4{{ end }}{{ end }}
 
 @enduml

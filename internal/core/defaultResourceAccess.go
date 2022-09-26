@@ -54,15 +54,25 @@ var DefaultResourceAccess = NewDefaultResourceAccess()
 func executeTemplate(in string, data interface{}) (out string, err error) {
 	tmpl, err := template.New("t").Funcs(
 		template.FuncMap{
-			"prefix": func(in string) string {
-				parts := strings.Split(in, "(")
-				return parts[0]
-			},
 			"endsWith": func(src, pat string) bool {
 				if strings.HasSuffix(src, pat) {
 					return true
 				}
 				return false
+			},
+			"hasMethodContains": func(s *Source, pat string) bool {
+				for _, s := range s.Structs {
+					for _, m := range s.Methods {
+						if strings.Contains(m, pat) {
+							return true
+						}
+					}
+				}
+				return false
+			},
+			"prefix": func(in string) string {
+				parts := strings.Split(in, "(")
+				return parts[0]
 			},
 			"startsWith": func(src, pat string) bool {
 				if strings.HasPrefix(src, pat) {
