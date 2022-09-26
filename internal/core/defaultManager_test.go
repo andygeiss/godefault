@@ -639,3 +639,59 @@ func TestDefaultManager_DoSomething(t *testing.T) {
 		})
 	}
 }
+
+func TestDefaultManager_GenerateSinglePlantUML(t *testing.T) {
+	tests := []struct {
+		name     string
+		in       string
+		expected string
+	}{
+		{
+			"create client, manager, engine and resource access participants",
+			`package example
+
+type UserClient interface {
+	Error() (err error)
+}
+
+type ShowDashboardManager interface {
+	Error() (err error)
+}
+
+type TemplateEngine interface {
+	Error() (err error)
+}
+
+type CustomerResourceAccess interface {
+	Error() (err error)
+}
+
+`,
+			`@startuml
+autonumber
+
+skinparam ResponseMessageBelowArrow true
+
+title "Use Case"
+
+actor User as A
+
+participant UserClient as B #CDDC39
+participant ShowDashboardManager as C #FFEB3B
+participant TemplateEngine as D #FFC107
+participant CustomerResourceAccess as E #00BCD4
+
+@enduml
+`,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			de := core.DefaultEngine
+			dra := core.DefaultResourceAccess
+			dm := core.NewDefaultManager().WithEngine(de).WithResourceAccess(dra)
+			out := dm.GenerateSinglePlantUML(test.in)
+			assert.That(test.name, t, out, test.expected)
+		})
+	}
+}

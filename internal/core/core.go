@@ -12,8 +12,10 @@ type GeneratorManager interface {
 	Error() (err error)
 	GenerateMultipleGoSources(in string) (out map[string]string)
 	GenerateMultipleGoTests(in string) (out map[string]string)
+	GenerateMultiplePlantUML(in string) (out map[string]string)
 	GenerateSingleGoSource(in string) (out string)
 	GenerateSingleGoTest(in string) (out string)
+	GenerateSinglePlantUML(in string) (out string)
 	WithEngine(e TemplateEngine) (m GeneratorManager)
 	WithResourceAccess(ra GoResourceAccess) (m GeneratorManager)
 }
