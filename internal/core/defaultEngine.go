@@ -63,6 +63,8 @@ func getExpr(expr ast.Expr) (out string) {
 		out = t.String()
 	case *ast.MapType:
 		out = "map[" + getExpr(t.Key) + "]" + getExpr(t.Value)
+	case *ast.SelectorExpr:
+		out = getExpr(t.X) + "." + getExpr(t.Sel)
 	case *ast.StarExpr:
 		out = "*" + t.X.(*ast.Ident).String()
 	}
