@@ -78,4 +78,4 @@ Finally, generate the default implementation:
 
     go generate ./...
 
-This will create source, test and diagram boilerplate code.
+This will create the sources, tests and PlantUML boilerplate.

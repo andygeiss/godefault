@@ -38,6 +38,20 @@ func (a *defaultManager) GenerateMultipleGoTests(in string) (out map[string]stri
 	return out
 }
 
+func (a *defaultManager) GenerateMultiplePlantUML(in string) (out map[string]string) {
+	src := a.engine.Parse(in)
+	if a.engine.Error() != nil {
+		a.err = a.engine.Error()
+		return
+	}
+	out = a.resourceAccess.GenerateMultiFiles(src, DefaultPlantUMLTemplate)
+	if a.resourceAccess.Error() != nil {
+		a.err = a.resourceAccess.Error()
+		return
+	}
+	return out
+}
+
 func (a *defaultManager) GenerateSingleGoSource(in string) (out string) {
 	src := a.engine.Parse(in)
 	if a.engine.Error() != nil {
@@ -66,6 +80,19 @@ func (a *defaultManager) GenerateSingleGoTest(in string) (out string) {
 	return out
 }
 
+func (a *defaultManager) GenerateSinglePlantUML(in string) (out string) {
+	src := a.engine.Parse(in)
+	if a.engine.Error() != nil {
+		a.err = a.engine.Error()
+		return
+	}
+	out = a.resourceAccess.GenerateSingleFile(src, DefaultPlantUMLTemplate)
+	if a.resourceAccess.Error() != nil {
+		a.err = a.resourceAccess.Error()
+		return
+	}
+	return out
+}
 func (a *defaultManager) WithEngine(e TemplateEngine) GeneratorManager {
 	a.engine = e
 	return a
@@ -122,3 +149,18 @@ func TestDefault{{ $s.Name }}_{{ $p }}(t *testing.T) {
 }
 {{ end }}{{ end }}{{ end }}
 {{ end }}`
+
+// DefaultPlantUMLTemplate ...
+const DefaultPlantUMLTemplate = `{{ $pkg := .Package }}@startuml
+autonumber
+
+skinparam ResponseMessageBelowArrow true
+
+title "Use Case"
+
+actor User as A
+{{ range $s := .Structs }}{{ $hasSuffixClient := endsWith $s.Name "Client" }}{{ $hasSuffixManager := endsWith $s.Name "Manager" }}{{ $hasSuffixEngine := endsWith $s.Name "Engine" }}{{ $hasSuffixResourceAccess := endsWith $s.Name "ResourceAccess" }}
+{{ if $hasSuffixClient }}participant {{ $s.Name }} as B #CDDC39{{ end }}{{ if $hasSuffixManager }}participant {{ $s.Name }} as C #FFEB3B{{ end }}{{ if $hasSuffixEngine }}participant {{ $s.Name }} as D #FFC107{{ end }}{{ if $hasSuffixResourceAccess }}participant {{ $s.Name }} as E #00BCD4{{ end }}{{ end }}
+
+@enduml
+`

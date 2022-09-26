@@ -27,6 +27,7 @@ func (a *defaultClient) Generate() {
 	}
 	a.writeSources(src, cwd)
 	a.writeTests(src, cwd)
+	a.writePlantUML(src, cwd)
 }
 
 func (a *defaultClient) WithManager(m GeneratorManager) DeveloperClient {
@@ -34,12 +35,24 @@ func (a *defaultClient) WithManager(m GeneratorManager) DeveloperClient {
 	return a
 }
 
+func (a *defaultClient) writePlantUML(src []byte, cwd string) {
+	code := a.manager.GenerateSinglePlantUML(string(src))
+	path := filepath.Join(cwd, "core.puml")
+	_, err := os.Stat(path)
+	if err == nil { // skip if file already exists
+		return
+	}
+	if err := os.WriteFile(path, []byte(code), 0644); err != nil {
+		log.Fatal(err)
+	}
+}
+
 func (a *defaultClient) writeSources(src []byte, cwd string) {
 	sources := a.manager.GenerateMultipleGoSources(string(src))
 	for name, code := range sources {
 		path := filepath.Join(cwd, fmt.Sprintf("%s.go", name))
 		_, err := os.Stat(path)
-		if err == nil { // skip if file not exists
+		if err == nil { // skip if file already exists
 			continue
 		}
 		if err := os.WriteFile(path, []byte(code), 0644); err != nil {
@@ -53,7 +66,7 @@ func (a *defaultClient) writeTests(src []byte, cwd string) {
 	for name, code := range tests {
 		path := filepath.Join(cwd, fmt.Sprintf("%s_test.go", name))
 		_, err := os.Stat(path)
-		if err == nil { // skip if file not exists
+		if err == nil { // skip if file already exists
 			continue
 		}
 		if err := os.WriteFile(path, []byte(code), 0644); err != nil {

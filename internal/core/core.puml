@@ -27,6 +27,13 @@ C -> E: GenerateMultipleGoTests(src, DefaultGoTestTemplate)
 E -> C:
 C -> B: Error()
 
+B -> C: GenerateMultiplePlantUML(in)
+C -> D: Parse(in)
+D -> C: src *Source
+C -> E: GenerateMultiplePlantUML(src, DefaultGoTestTemplate)
+E -> C:
+C -> B: Error()
+
 B -> A: Error()
 
 @enduml
