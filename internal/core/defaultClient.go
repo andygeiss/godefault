@@ -27,6 +27,7 @@ func (a *defaultClient) Generate() {
 	}
 	a.writeSources(src, cwd)
 	a.writeTests(src, cwd)
+	a.writePlantUML(src, cwd)
 }
 
 func (a *defaultClient) WithManager(m GeneratorManager) DeveloperClient {
