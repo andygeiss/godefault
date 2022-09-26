@@ -78,4 +78,29 @@ Finally, generate the default implementation:
 
     go generate ./...
 
-This will create the sources, tests and PlantUML boilerplate.
+This will create a PlantUML and ...
+
+![sequence](sequence.png)
+
+Go sources and tests as boilerplate.
+
+    C:.                                              
+    |   go.mod                                       
+    |   go.sum                                       
+    |                                                
+    \---internal                                     
+        \---core                                     
+                core.go                              
+                core.puml                            
+                defaultContractorPortalClient.go     
+                defaultContractorPortalClient_test.go
+                defaultMarketManager.go              
+                defaultMarketManager_test.go         
+                defaultProjectResourceAccess.go      
+                defaultProjectResourceAccess_test.go
+                defaultRegulationEngine.go           
+                defaultRegulationEngine_test.go
+                defaultRegulationResourceAccess.go
+                defaultRegulationResourceAccess_test.go
+                defaultWorkflowResourceAccess.go
+                defaultWorkflowResourceAccess_test.go
