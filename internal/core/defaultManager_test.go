@@ -518,6 +518,34 @@ var DefaultManager = NewDefaultManager()
 
 `,
 		},
+		{
+			"support packages as return values",
+			`package testdata
+
+type Manager interface {
+	WithMessageBus(mb message.Bus) (mb2 message.Bus) 
+}
+
+`,
+			`package testdata
+
+type defaultManager struct {}
+
+func (a *defaultManager) WithMessageBus(mb message.Bus) (mb2 message.Bus) {
+	//TODO implement me
+	panic("implement me")
+}
+
+// NewDefaultManager ...
+func NewDefaultManager() Manager {
+	return &defaultManager{}
+}
+
+// DefaultManager ...
+var DefaultManager = NewDefaultManager()
+
+`,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
