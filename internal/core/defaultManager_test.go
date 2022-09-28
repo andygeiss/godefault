@@ -594,7 +594,7 @@ import (
 
 func TestDefaultManager_DoSomething(t *testing.T) {
 	// Arrange
-	sut := example.DefaultManager
+	sut := example.NewDefaultManager()
 	// Act
 	//TODO implement me
 	// Assert
@@ -621,7 +621,7 @@ import (
 
 func TestDefaultManager_DoSomething(t *testing.T) {
 	// Arrange
-	sut := example.DefaultManager
+	sut := example.NewDefaultManager()
 	// Act
 	//TODO implement me
 	// Assert
@@ -630,7 +630,7 @@ func TestDefaultManager_DoSomething(t *testing.T) {
 
 func TestDefaultManager_DoSomethingElse(t *testing.T) {
 	// Arrange
-	sut := example.DefaultManager
+	sut := example.NewDefaultManager()
 	// Act
 	//TODO implement me
 	// Assert
@@ -675,7 +675,7 @@ import (
 
 func TestDefaultManager_DoSomething(t *testing.T) {
 	// Arrange
-	sut := example.DefaultManager
+	sut := example.NewDefaultManager()
 	// Act
 	//TODO implement me
 	// Assert

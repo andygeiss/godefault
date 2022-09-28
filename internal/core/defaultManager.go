@@ -141,7 +141,7 @@ import (
 {{ range $s := .Structs }}{{ range $m := $s.Methods }}{{ $p := prefix $m }}{{ $isBuilderMethod := startsWith $p "With" }}{{ if ne $p "Error" }}{{ if ne $isBuilderMethod true }}
 func TestDefault{{ $s.Name }}_{{ $p }}(t *testing.T) {
 	// Arrange
-	sut := {{ $pkg }}.Default{{ $s.Name }}
+	sut := {{ $pkg }}.NewDefault{{ $s.Name }}()
 	// Act
 	//TODO implement me
 	// Assert
