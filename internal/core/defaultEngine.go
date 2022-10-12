@@ -57,6 +57,15 @@ func getExpr(expr ast.Expr) (out string) {
 			fieldLen = l.Value
 		}
 		out = "[" + fieldLen + "]" + getExpr(t.Elt)
+	case *ast.ChanType:
+		switch t.Dir {
+		case 1: // receive-only
+			out = "chan<- " + getExpr(t.Value)
+		case 2: // send-only
+			out = "<-chan " + getExpr(t.Value)
+		case 3: // bi-directional
+			out = "chan " + getExpr(t.Value)
+		}
 	case *ast.Ellipsis:
 		out = "..." + getExpr(t.Elt)
 	case *ast.Ident:
