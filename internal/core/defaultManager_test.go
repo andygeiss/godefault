@@ -586,6 +586,46 @@ var DefaultManager = NewDefaultManager()
 
 `,
 		},
+		{
+			"support channels as return value",
+			`package testdata
+
+type Manager interface {
+	Process() (stopCh chan bool)
+	Process2() (stopCh chan<- bool)
+	Process3() (stopCh <-chan bool)
+}
+
+`,
+			`package testdata
+
+type defaultManager struct {}
+
+func (a *defaultManager) Process() (stopCh chan bool) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (a *defaultManager) Process2() (stopCh chan<- bool) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (a *defaultManager) Process3() (stopCh <-chan bool) {
+	//TODO implement me
+	panic("implement me")
+}
+
+// NewDefaultManager ...
+func NewDefaultManager() Manager {
+	return &defaultManager{}
+}
+
+// DefaultManager ...
+var DefaultManager = NewDefaultManager()
+
+`,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
