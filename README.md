@@ -4,7 +4,6 @@
 [![](https://img.shields.io/github/v/release/andygeiss/godefault)](https://github.com/andygeiss/godefault/releases)
 [![](https://img.shields.io/github/go-mod/go-version/andygeiss/godefault)](https://github.com/andygeiss/godefault)
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygeiss/godefault)](https://goreportcard.com/report/github.com/andygeiss/godefault)
-[![BCH compliance](https://bettercodehub.com/edge/badge/andygeiss/godefault?branch=main)](https://bettercodehub.com/)
 
 **Generate a standard implementation and tests from your interface declaration**
 
